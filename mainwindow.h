@@ -14,10 +14,13 @@ class MainWindow : public QMainWindow
 public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
+    virtual void paintEvent(QPaintEvent* pe) override;
 private:
-    void __createCircle();
+    void __createCircle(QPainter*);
+    void __createRect(QPainter*);
 private:
     Ui::MainWindow *ui;
+    QWidget* m_widget;
 };
 
 #endif // MAINWINDOW_H
