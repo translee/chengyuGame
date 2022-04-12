@@ -1,5 +1,6 @@
 <RCC>
     <qresource prefix="/imageRes">
         <file>res/img.jpg</file>
+        <file>res/guangfa.jpg</file>
     </qresource>
 </RCC>

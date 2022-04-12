@@ -2,7 +2,8 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
-
+#include <QTimer>
+class PlayerCircle;
 namespace Ui {
 class MainWindow;
 }
@@ -16,11 +17,12 @@ public:
     ~MainWindow();
     virtual void paintEvent(QPaintEvent* pe) override;
 private:
-    void __createCircle(QPainter*);
     void __createRect(QPainter*);
 private:
     Ui::MainWindow *ui;
     QWidget* m_widget;
+    QTimer timer;
+    PlayerCircle* m_player1;
 };
 
 #endif // MAINWINDOW_H

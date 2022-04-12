@@ -5,17 +5,25 @@
 #include <QPushButton>
 #include <QPainter>
 #include <QPainterPath>
+#include <QTimer>
+#include "playercircle.h"
+#include "gameutil.h"
 
 using namespace constDef;
 
-MainWindow::MainWindow(QWidget *parent) :
-    QMainWindow(parent),
-    ui(new Ui::MainWindow)
+MainWindow::MainWindow(QWidget *parent)
+    : QMainWindow(parent)
+    , ui(new Ui::MainWindow)
+    , m_player1(new PlayerCircle())
 {
     ui->setupUi(this);
-    //ui->graphicsView->setStyleSheet("background: rgb(200,200,255);");
     m_widget = new QWidget();
     ui->verticalLayout->addWidget(m_widget);
+    connect(&timer,&QTimer::timeout,[this]
+        {
+            update();
+        });
+    timer.start(100);
 }
 
 MainWindow::~MainWindow()
@@ -29,27 +37,13 @@ void MainWindow::paintEvent(QPaintEvent* pe)
     QPainter* paint=new QPainter(m_widget);
     paint->begin(this);
     __createRect(paint);
-    QSize picSize(30,30);
-    QPixmap image(":imageRes/res/img.jpg");
-    QPixmap scaledPixmap = image.scaled(picSize, Qt::KeepAspectRatio);
-    QBrush brush;
-
-    brush.setTexture(scaledPixmap);
-    paint->setBrush(brush);
-    paint->drawEllipse(QRect(20,20,30,30));
-
-
-//    QRect rect = QRect(20,20,50,50);
-    //paint->drawPixmap(rect,QPixmap(":imageRes/res/img.jpg"));
-
+    QPixmap temp = m_player1->increaseAngle();
+    //paint->rotate(10);
+    auto pr = GameUtil::getRotateOffset(30, m_player1->getAngle());
+    //paint->drawRect(300 - pr.first, 100 - pr.second,60, 60);
+    paint->drawPixmap(300 - pr.first, 100 - pr.second, temp);
     paint->end();
-
     return;
-}
-
-void MainWindow::__createCircle(QPainter*)
-{
-
 }
 
 void MainWindow::__createRect(QPainter* paint)
@@ -57,7 +51,7 @@ void MainWindow::__createRect(QPainter* paint)
     int winW = m_widget->width();
     int winH = m_widget->height();
     paint->setPen(QPen(Qt::black,2,Qt::SolidLine));
-    paint->drawRect(10,10,winW,winH);
+    paint->drawRect(10,10,RectWidth,RectHeight);
 }
 
 
