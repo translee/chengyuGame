@@ -24,16 +24,20 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 
 SOURCES += \
+        displaywidget.cpp \
         gameutil.cpp \
         main.cpp \
         mainwindow.cpp \
-        playercircle.cpp
+        player.cpp \
+        playermanager.cpp
 
 HEADERS += \
         constDef.h \
+        displaywidget.h \
         gameutil.h \
         mainwindow.h \
-        playercircle.h
+        player.h \
+        playermanager.h
 
 FORMS += \
         mainwindow.ui
