@@ -29,7 +29,9 @@ SOURCES += \
         main.cpp \
         mainwindow.cpp \
         player.cpp \
-        playermanager.cpp
+        playermanager.cpp \
+    npcplayer.cpp \
+    humanplayer.cpp
 
 HEADERS += \
         constDef.h \
@@ -37,7 +39,9 @@ HEADERS += \
         gameutil.h \
         mainwindow.h \
         player.h \
-        playermanager.h
+        playermanager.h \
+    npcplayer.h \
+    humanplayer.h
 
 FORMS += \
         mainwindow.ui

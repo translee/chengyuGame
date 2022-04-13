@@ -13,6 +13,33 @@ QPixmap GameUtil::loadPixmap(const QString& path)
     return circleImage;
 }
 
+QPoint GameUtil::topLeft(const QRect& rect)
+{
+    return rect.topLeft();
+}
+
+QPoint GameUtil::bottomLeft(const QRect& rect)
+{
+    QPoint realBottomLeft = rect.bottomLeft();
+    realBottomLeft.ry() += 1;
+    return realBottomLeft;
+}
+
+QPoint GameUtil::bottomRight(const QRect& rect)
+{
+    QPoint realBottomRight = rect.bottomRight();
+    realBottomRight.rx() += 1;
+    realBottomRight.ry() += 1;
+    return realBottomRight;
+}
+
+QPoint GameUtil::topRight(const QRect& rect)
+{
+    QPoint realTopRight = rect.topRight();
+    realTopRight.rx() += 1;
+    return realTopRight;
+}
+
 QPixmap GameUtil::__pixmapToRound(const QPixmap& src, int diameter)
 {
     if (src.isNull()) {

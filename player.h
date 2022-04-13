@@ -7,13 +7,10 @@ class Player
 public:
     enum class Direction {Left, Down, Right, Up};
 public:
-    Player();
-    Player(int x, int y);
+    Player(int x, int y, const QString& path);
     QPixmap getImage() const {return m_image;};
     inline QRect getRect() const {return m_rect;};
     void moveNext();
-private:
-    void __doMove();
 private:
     static QRect m_sLimit;
     static int m_sSpeed;

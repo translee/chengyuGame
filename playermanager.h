@@ -2,7 +2,7 @@
 #define PLAYERMANAGER_H
 #include <vector>
 
-class Player;
+//class Player;
 class PlayerManager final
 {
 public:
@@ -11,13 +11,15 @@ public:
     PlayerManager& operator=(const PlayerManager&)=delete;
     ~PlayerManager();
 public:
-    bool addRandomPlayer();
-    bool addPlayer(int x, int y);
-    auto getAllPlayers() const {return m_vecPlayers;};
+    bool addHumanPlayer(int x, int y);
+    bool addNPCPlayer(int x, int y);
+    void initAllPosToNPC();
+    std::vector<Player*> getAllPlayers() const;
 private:
     PlayerManager()=default;
 private:
-    std::vector<Player*> m_vecPlayers;
+    std::vector<Player*> m_vecNPCs;
+    std::vector<Player*> m_vecHumans;
 };
 
 #endif // PLAYERMANAGER_H
