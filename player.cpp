@@ -1,10 +1,10 @@
+#include "player.h"
 #include <QDebug>
 #include <QString>
-#include "player.h"
 #include "gameutil.h"
 #include "constDef.h"
 using namespace constDef;
-//":imageRes/res/guangfa.jpg"
+
 QRect Player::m_sLimit(Space, Space, RectWidth-CircleDiameter, RectHeight-CircleDiameter);
 int Player::m_sSpeed = 1;
 

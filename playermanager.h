@@ -1,8 +1,9 @@
 #ifndef PLAYERMANAGER_H
 #define PLAYERMANAGER_H
 #include <vector>
+#include "humanplayer.h"
+class NPCPlayer;
 
-//class Player;
 class PlayerManager final
 {
 public:
@@ -11,15 +12,19 @@ public:
     PlayerManager& operator=(const PlayerManager&)=delete;
     ~PlayerManager();
 public:
-    bool addHumanPlayer(int x, int y);
-    bool addNPCPlayer(int x, int y);
+    bool addHumanPlayer();
+    bool deleteHumanPlayer(size_t);
+    void addNPCPlayer(int x, int y);
     void initAllPosToNPC();
-    std::vector<Player*> getAllPlayers() const;
+    std::vector<NPCPlayer*> getAllNPCPlayers() const { return m_vecNPCs; };
+    std::vector<HumanPlayer*> getAllHumanPlayers() const { return m_vecHumans; };
+    HumanPlayer getHumanPlayersByIndex(size_t i) const;
 private:
     PlayerManager()=default;
 private:
-    std::vector<Player*> m_vecNPCs;
-    std::vector<Player*> m_vecHumans;
+    std::vector<NPCPlayer*> m_vecNPCs;
+    std::vector<HumanPlayer*> m_vecHumans;
+    std::vector<QPoint> m_vecFreePos;
 };
 
 #endif // PLAYERMANAGER_H

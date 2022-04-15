@@ -8,8 +8,8 @@ public:
     enum class Direction {Left, Down, Right, Up};
 public:
     Player(int x, int y, const QString& path);
-    QPixmap getImage() const {return m_image;};
-    inline QRect getRect() const {return m_rect;};
+    const QPixmap& getImage() const {return m_image;};
+    inline const QRect& getRect() const {return m_rect;};
     void moveNext();
 private:
     static QRect m_sLimit;

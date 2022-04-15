@@ -31,7 +31,9 @@ SOURCES += \
         player.cpp \
         playermanager.cpp \
     npcplayer.cpp \
-    humanplayer.cpp
+    humanplayer.cpp \
+    statusbar.cpp \
+    statusshowwidget.cpp
 
 HEADERS += \
         constDef.h \
@@ -41,7 +43,9 @@ HEADERS += \
         player.h \
         playermanager.h \
     npcplayer.h \
-    humanplayer.h
+    humanplayer.h \
+    statusbar.h \
+    statusshowwidget.h
 
 FORMS += \
         mainwindow.ui

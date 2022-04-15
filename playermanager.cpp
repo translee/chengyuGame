@@ -1,6 +1,6 @@
+#include "playermanager.h"
 #include <npcplayer.h>
 #include <humanplayer.h>
-#include "playermanager.h"
 #include "constDef.h"
 using namespace constDef;
 
@@ -18,27 +18,25 @@ PlayerManager::~PlayerManager()
         delete pt;
 }
 
-bool PlayerManager::addHumanPlayer(int x, int y)
+bool PlayerManager::addHumanPlayer()
 {
-    Player* newPlayer = new HumanPlayer(x,
-            y, ":imageRes/res/guangfa.jpg");
+    int nFreePos = static_cast<int>(m_vecFreePos.size());
+    if (0 == nFreePos)
+        return false;
+    int pos = (rand() % (nFreePos));
+    auto it = m_vecFreePos.begin() + pos;
+    HumanPlayer* newPlayer = new HumanPlayer(it->x(),
+            it->y(), ":imageRes/res/guangfa.jpg");
+    m_vecFreePos.erase(it);
     m_vecHumans.push_back(newPlayer);
     return true;
 }
 
-bool PlayerManager::addNPCPlayer(int x, int y)
+void PlayerManager::addNPCPlayer(int x, int y)
 {
-    Player* newPlayer = new NPCPlayer(x, y);
+    NPCPlayer* newPlayer = new NPCPlayer(x, y);
     m_vecNPCs.push_back(newPlayer);
-    return true;
-}
-
-std::vector<Player*> PlayerManager::getAllPlayers() const
-{
-    std::vector<Player*> allPlayers(m_vecNPCs);
-    allPlayers.insert(allPlayers.end(), m_vecHumans.begin(),
-                      m_vecHumans.end());
-    return allPlayers;
+    return;
 }
 
 void PlayerManager::initAllPosToNPC()
@@ -48,22 +46,43 @@ void PlayerManager::initAllPosToNPC()
     for (int i = 0; i < ColNum - 1; i++)
     {
         addNPCPlayer(x, y);
+        m_vecFreePos.push_back(QPoint(x, y));
         x += CircleDiameter;
     }
     for (int i = 0; i < RowNum - 1; i++)
     {
         addNPCPlayer(x, y);
+        m_vecFreePos.push_back(QPoint(x, y));
         y += CircleDiameter;
     }
     for (int i = 0; i < ColNum - 1; i++)
     {
         addNPCPlayer(x, y);
+        m_vecFreePos.push_back(QPoint(x, y));
         x -= CircleDiameter;
     }
     for (int i = 0; i < RowNum - 1; i++)
     {
         addNPCPlayer(x, y);
+        m_vecFreePos.push_back(QPoint(x, y));
         y -= CircleDiameter;
     }
     return;
+}
+
+HumanPlayer PlayerManager::getHumanPlayersByIndex(size_t i) const
+{
+    if (i >= m_vecHumans.size())
+        return HumanPlayer(0, 0, ":imageRes/res/npc.jpg");
+    return *(m_vecHumans[i]);
+}
+
+bool PlayerManager::deleteHumanPlayer(size_t i)
+{
+    if (i >= m_vecHumans.size())
+        return false;
+    auto it = m_vecHumans.begin() + i;
+    delete *it;
+    m_vecHumans.erase(it);
+    return true;
 }
