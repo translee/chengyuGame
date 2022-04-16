@@ -13,10 +13,14 @@ MainWindow::MainWindow(QWidget *parent)
     ui->verticalLayout->addWidget(m_displayWidget);
     ui->verticalLayout_status->addWidget(m_statusShowWidget);
     ui->statusBar->showMessage("状态栏");
+    ui->textBrowser->moveCursor(QTextCursor::End);
     this->setWindowTitle("成语接龙");
     this->setFixedSize(this->width(),this->height());
     connect(ui->pushButton,&QPushButton::clicked,this,[this]{
         this->m_displayWidget->setText(this->ui->lineEdit->text());
+    });
+    connect(ui->pushButton,&QPushButton::clicked,this,[this]{
+        this->ui->textBrowser->append("sdsadadsadasda");
     });
 }
 
@@ -24,5 +28,6 @@ MainWindow::~MainWindow()
 {
     delete ui;
     delete m_displayWidget;
+    delete m_statusShowWidget;
 }
 

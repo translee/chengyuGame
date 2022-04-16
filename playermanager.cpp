@@ -1,7 +1,9 @@
 #include "playermanager.h"
+#include <QPainter>
+#include "constDef.h"
+#include "gameutil.h"
 #include <npcplayer.h>
 #include <humanplayer.h>
-#include "constDef.h"
 using namespace constDef;
 
 PlayerManager& PlayerManager::getInstance()
@@ -18,15 +20,14 @@ PlayerManager::~PlayerManager()
         delete pt;
 }
 
-bool PlayerManager::addHumanPlayer()
+bool PlayerManager::addHumanPlayer(const QString& path)
 {
     int nFreePos = static_cast<int>(m_vecFreePos.size());
     if (0 == nFreePos)
         return false;
     int pos = (rand() % (nFreePos));
     auto it = m_vecFreePos.begin() + pos;
-    HumanPlayer* newPlayer = new HumanPlayer(it->x(),
-            it->y(), ":imageRes/res/guangfa.jpg");
+    HumanPlayer* newPlayer = new HumanPlayer(it->x(), it->y(), path);
     m_vecFreePos.erase(it);
     m_vecHumans.push_back(newPlayer);
     return true;
@@ -70,11 +71,11 @@ void PlayerManager::initAllPosToNPC()
     return;
 }
 
-HumanPlayer PlayerManager::getHumanPlayersByIndex(size_t i) const
+HumanPlayer* PlayerManager::getHumanPlayersByIndex(size_t i) const
 {
     if (i >= m_vecHumans.size())
-        return HumanPlayer(0, 0, ":imageRes/res/npc.jpg");
-    return *(m_vecHumans[i]);
+        return nullptr;
+    return m_vecHumans[i];
 }
 
 bool PlayerManager::deleteHumanPlayer(size_t i)
@@ -85,4 +86,24 @@ bool PlayerManager::deleteHumanPlayer(size_t i)
     delete *it;
     m_vecHumans.erase(it);
     return true;
+}
+
+QPixmap PlayerManager::getALLPlayerStatusPixmap() const
+{
+    QPixmap allMap(m_vecHumans.size() * StatusWidth + 1, StatusHeight);
+    int startX = 0;
+    int startY = 0;
+    QPainter painter(&allMap);
+    for (auto pt : m_vecHumans)
+    {
+        painter.drawPixmap(startX, startY, pt->getStatusPixmap());
+        startX += StatusWidth;
+    }
+    if (m_vecHumans.size() < 10)
+    {
+        QPen pen(Qt::darkCyan,2,Qt::SolidLine);
+        painter.setPen(pen);
+        painter.drawLine(startX, 0, startX, StatusHeight);
+    }
+    return allMap;
 }

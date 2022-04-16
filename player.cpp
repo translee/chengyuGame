@@ -5,14 +5,15 @@
 #include "constDef.h"
 using namespace constDef;
 
-QRect Player::m_sLimit(Space, Space, RectWidth-CircleDiameter, RectHeight-CircleDiameter);
+QRect Player::m_sLimit(Space, Space, RectWidth-CircleDiameter,
+                       RectHeight-CircleDiameter);
 int Player::m_sSpeed = 1;
 
 Player::Player(int x, int y, const QString& path)
-    : m_dir(Direction::Left)
+    : m_image(GameUtil::loadPixmap(path))
+    , m_rect(x, y, CircleDiameter, CircleDiameter)
+    , m_dir(Direction::Left)
 {
-    m_image = GameUtil::loadPixmap(path);
-    m_rect = QRect(x, y, CircleDiameter, CircleDiameter);
     if (x == m_sLimit.left())
         m_dir = Direction::Down;
     else if (y == m_sLimit.top())
@@ -21,6 +22,10 @@ Player::Player(int x, int y, const QString& path)
         m_dir = Direction::Up;
     else if (y == m_sLimit.bottom()+1)
         m_dir = Direction::Right;
+}
+
+Player::~Player()
+{
 }
 
 void Player::moveNext()

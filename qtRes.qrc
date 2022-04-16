@@ -3,5 +3,6 @@
         <file>res/img.jpg</file>
         <file>res/guangfa.jpg</file>
         <file>res/npc.jpg</file>
+        <file>res/tuohai.jpg</file>
     </qresource>
 </RCC>

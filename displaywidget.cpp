@@ -12,13 +12,13 @@ DisplayWidget::DisplayWidget(QWidget *parent)
     , m_timer(new QTimer())
     , m_text(new QString("成语接龙"))
 {
-    connect(m_timer,&QTimer::timeout,this,&DisplayWidget::__refreshWidget);
+    connect(m_timer,&QTimer::timeout,this,[this]{ update(); });
     m_timer->start(20);
     PlayerManager::getInstance().initAllPosToNPC();
-    PlayerManager::getInstance().addHumanPlayer();
-    PlayerManager::getInstance().addHumanPlayer();
-    PlayerManager::getInstance().addHumanPlayer();
-    PlayerManager::getInstance().deleteHumanPlayer(0);
+    PlayerManager::getInstance().addHumanPlayer(guangfa);
+    PlayerManager::getInstance().addHumanPlayer(tuohai);
+    PlayerManager::getInstance().getHumanPlayersByIndex(1)->setStatus(
+                HumanPlayer::PlayerStatus::DEFFEND);
 }
 
 DisplayWidget::~DisplayWidget()
@@ -49,12 +49,12 @@ void DisplayWidget::__createPlayerImage(QPainter* paint)
     for (auto pl : playerList)
     {
         pl->moveNext();
-        paint->drawPixmap(pl->getRect(), pl->getImage());
+        paint->drawPixmap(pl->getX(),pl->getY(), pl->getImage());
     }
     for (auto pl : humanPlayerList)
     {
         pl->moveNext();
-        paint->drawPixmap(pl->getRect(), pl->getImage());
+        paint->drawPixmap(pl->getX(),pl->getY(), pl->getImage());
     }
 }
 
@@ -68,7 +68,7 @@ void DisplayWidget::__createIdiomImage(QPainter* paint)
     QFont font("FongSun", TextSize);
     font.setBold(true);
     paint->setFont(font);
-    paint->drawText(IdiomTextX, IdiomTextY,*m_text);
+    paint->drawText(IdiomTextX, IdiomTextY, *m_text);
 }
 
 void DisplayWidget::__createBombLine(QPainter* paint)
@@ -78,7 +78,3 @@ void DisplayWidget::__createBombLine(QPainter* paint)
     paint->drawLine(FocusX, Space, FocusX, RectHeight);
 }
 
-void DisplayWidget::__refreshWidget()
-{
-    update();
-}

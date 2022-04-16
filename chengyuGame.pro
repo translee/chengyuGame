@@ -32,7 +32,6 @@ SOURCES += \
         playermanager.cpp \
     npcplayer.cpp \
     humanplayer.cpp \
-    statusbar.cpp \
     statusshowwidget.cpp
 
 HEADERS += \
@@ -44,7 +43,6 @@ HEADERS += \
         playermanager.h \
     npcplayer.h \
     humanplayer.h \
-    statusbar.h \
     statusshowwidget.h
 
 FORMS += \

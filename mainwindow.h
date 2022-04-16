@@ -1,3 +1,11 @@
+/**
+ * @class   MainWindow
+ * @author  github.com/translee
+ * @date    2022/04/16
+ * @brief   程序主窗口
+ * @note:
+*/
+
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 #include <QMainWindow>
@@ -6,12 +14,13 @@ class StatusShowWidget;
 namespace Ui {
 class MainWindow;
 }
+
 class MainWindow : public QMainWindow
 {
     Q_OBJECT
 public:
     explicit MainWindow(QWidget *parent = 0);
-    ~MainWindow();
+    virtual ~MainWindow();
 private:
     void __refreshText();
 private:

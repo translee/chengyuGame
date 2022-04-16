@@ -1,3 +1,11 @@
+/**
+ * @class
+ * @author  github.com/translee
+ * @date    2022/04/16
+ * @brief   常量统一定义
+ * @note
+*/
+
 #ifndef CONSTDEF_H
 #define CONSTDEF_H
 
@@ -8,10 +16,10 @@ constexpr double PI = 3.1415926;
 // 空间尺寸
 constexpr int Space = 10;
 // 图片统一尺寸(与显示大小无关)
-constexpr int PicSize = 300;
+constexpr int PicSize = 500;
 }
 
-// 头像尺寸相关
+// 头像相关
 namespace constDef {
 // 圆半径
 constexpr int CircleRadius = 15;
@@ -21,6 +29,10 @@ constexpr int CircleDiameter = CircleRadius * 2;
 constexpr int RowNum = 10;
 // 列数
 constexpr int ColNum = 20;
+// 广发-临时
+const QString guangfa(":imageRes/res/guangfa.jpg");
+// 拓海-临时
+const QString tuohai(":imageRes/res/tuohai.jpg");
 }
 
 // 大矩形框相关
@@ -57,8 +69,10 @@ constexpr int FocusY = 200 + Space;
 
 // 状态框相关
 namespace constDef {
-constexpr int StatusWidth = 20;
-constexpr int StatusHeight = 20;
+constexpr int StatusWidth = 40;
+constexpr int StatusHeight = 150;
+constexpr int StatusWidthTotal = StatusWidth * 10;
+constexpr int StatusHeightTotal = StatusHeight;
 }
 
 #endif // CONSTDEF_H
