@@ -21,12 +21,12 @@ class MainWindow : public QMainWindow
 public:
     explicit MainWindow(QWidget *parent = 0);
     virtual ~MainWindow();
-private:
-    void __refreshText();
+    void addDanmuText();
 private:
     Ui::MainWindow *ui;
     DisplayWidget* m_displayWidget;
     StatusShowWidget* m_statusShowWidget;
+    QTimer* m_testTimer;
 };
 
 #endif // MAINWINDOW_H
